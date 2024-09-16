@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios"
+
+// layouts
 import DefaultLayout from "../layouts/Default.layout";
 
 // components
@@ -10,6 +13,16 @@ const Homepage = () => {
   const [recommendedMovies, setRecommendedMovies] = useState([]);
   const [premiumMovies, setPremierMovies] = useState([]);
   const [onlineStreamEvents, setOnlineStreamEvents] = useState([]);
+
+  useEffect(() => {
+    const getRecommendedMovies = async() => {
+      // let url = "https://api.sampleapis.com/movies/mystery";
+      const apiResponse = await axios.get("https://api.sampleapis.com/movies/mystery");
+      // console.log(apiResponse.data);
+      setRecommendedMovies(apiResponse.data);
+    }
+    getRecommendedMovies();
+  }, []);
 
   return (
     <>
