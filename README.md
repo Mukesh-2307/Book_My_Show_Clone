@@ -26,3 +26,14 @@ A full-stack Book My Show clone using MERN (MongoDB, Express, React, Node). Feat
 2. headlessui
 3. axios
 4. react-icons
+
+### APIs
+1. omdbapi.com
+```
+https://www.omdbapi.com/?apikey=1bc5b78a&s=kill&type=movie
+```
+
+2. sampleapis.com
+```
+https://api.sampleapis.com/movies/animation
+```

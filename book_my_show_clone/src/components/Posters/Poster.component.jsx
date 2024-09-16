@@ -1,9 +1,11 @@
 import React from 'react'
+import {Link} from "react-router-dom"
 
-const Poster = () => {
+const Poster = (props) => {
   return (
     <>
-      Poster
+    <Link to={`/movie/${props.imdbId}`}>Movies</Link>
+      {/* {props.title} */}
     </>
   )
 }
