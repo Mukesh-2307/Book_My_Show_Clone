@@ -21,7 +21,24 @@ const Homepage = () => {
       // console.log(apiResponse.data);
       setRecommendedMovies(apiResponse.data);
     }
+
+    const getPremiumMovies = async() => {
+      // let url = "https://api.sampleapis.com/movies/mystery";
+      const apiResponse = await axios.get("https://api.sampleapis.com/movies/classic");
+      // console.log(apiResponse.data);
+      setPremierMovies(apiResponse.data);
+    }
+
+    const getOnlineStreamMovies = async() => {
+      // let url = "https://api.sampleapis.com/movies/mystery";
+      const apiResponse = await axios.get("https://api.sampleapis.com/movies/horror");
+      // console.log(apiResponse.data);
+      setOnlineStreamEvents(apiResponse.data);
+    }
+
     getRecommendedMovies();
+    getPremiumMovies();
+    getOnlineStreamMovies();
   }, []);
 
   return (
