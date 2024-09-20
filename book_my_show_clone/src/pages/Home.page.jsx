@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios"
+import axios from "axios";
 
 // layouts
 import DefaultLayout from "../layouts/Default.layout";
@@ -15,29 +15,42 @@ const Homepage = () => {
   const [onlineStreamEvents, setOnlineStreamEvents] = useState([]);
 
   useEffect(() => {
-    const getRecommendedMovies = async() => {
-      // let url = "https://api.sampleapis.com/movies/mystery";
-      const apiResponse = await axios.get("https://api.sampleapis.com/movies/mystery");
-      // console.log(apiResponse.data);
-      setRecommendedMovies(apiResponse.data);
-    }
+    const getMovieList = async () => { 
+      try {
+        const url = "https://api.sampleapis.com/movies/drama"
+        const response = await axios.get(url);
+        // console.log(response.data);
+        setRecommendedMovies(response.data);
+      } catch (err) {
+        setRecommendedMovies(err.message);
+      }
+    };
+    getMovieList();
+  }, []);
 
-    const getPremiumMovies = async() => {
+  useEffect(() => {
+    const getPremiumMovies = async () => {
       // let url = "https://api.sampleapis.com/movies/mystery";
-      const apiResponse = await axios.get("https://api.sampleapis.com/movies/classic");
+      const apiResponse = await axios.get(
+        "https://api.sampleapis.com/movies/classic"
+      );
       // console.log(apiResponse.data);
       setPremierMovies(apiResponse.data);
-    }
+    };
 
-    const getOnlineStreamMovies = async() => {
+    getPremiumMovies();
+  }, []);
+
+  useEffect(() => {
+    const getOnlineStreamMovies = async () => {
       // let url = "https://api.sampleapis.com/movies/mystery";
-      const apiResponse = await axios.get("https://api.sampleapis.com/movies/horror");
+      const apiResponse = await axios.get(
+        "https://api.sampleapis.com/movies/horror"
+      );
       // console.log(apiResponse.data);
       setOnlineStreamEvents(apiResponse.data);
-    }
+    };
 
-    getRecommendedMovies();
-    getPremiumMovies();
     getOnlineStreamMovies();
   }, []);
 
