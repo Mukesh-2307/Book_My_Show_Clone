@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 const Poster = (props) => {
   return (
     <>
-      <Link to={`/movie/${props.imdbId}`}>
-        <div className="flex flex-col items-start gap-2 px-1 md:px-3">
+      <Link to={`/movie/${props.imdbId}/`}>
+        <div className="flex flex-col items-center gap-2 px-1 md:px-3">
           <div className="h-40 md:h-80">
             <img
-              src={props.posterURL}
+              src={props.posterURL || props.imageSet.verticalPoster.w480}
               alt="poster"
               className="w-full h-full rounded-md"
               onError={(e) => {
@@ -17,7 +17,7 @@ const Poster = (props) => {
               }}
             />
           </div>
-          <h3 className={`text-lg font-bold ${props.isDark ? "text-white": "text-gray-700"}`}>{props.title}</h3>
+          <h3 className={`text-lg font-bold ${props.isDark ? "text-white": "text-gray-700"}`}>{props.title || props.originalTitle}</h3>
         </div>
       </Link>
       {/* {props.title} */}
