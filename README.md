@@ -37,3 +37,26 @@ https://www.omdbapi.com/?apikey=1bc5b78a&s=kill&type=movie
 ```
 https://api.sampleapis.com/movies/animation
 ```
+3. Advance Movie Api (by Rapid APIs)
+```
+import axios from 'axios';
+
+const options = {
+  method: 'GET',
+  url: 'https://advance-movie-api.p.rapidapi.com/api/v1/streamitfree/genres/Documentary/1',
+  headers: {
+    'x-rapidapi-key': 'your-key',
+    'x-rapidapi-host': 'your-host-name',
+    'X-RapidAPI-Proxy-Secret': 'your-proxy-secret'
+  }
+};
+
+try {
+	const response = await axios.request(options);
+	console.log(response.data);
+} catch (error) {
+	console.error(error);
+}
+```
+
+4. FreeTestApi
