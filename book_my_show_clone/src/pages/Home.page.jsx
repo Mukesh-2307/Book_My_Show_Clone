@@ -5,53 +5,92 @@ import axios from "axios";
 import DefaultLayout from "../layouts/Default.layout";
 
 // components
-import EntertainmentCard from "../components/Entertainment/EntertainmentCard.component";
+import TopRatedCard from "../components/TopRated/TopRatedCard.component";
 import HeroCarousel from "../components/HeroCarousel/HeroCarousel.component";
 import PosterSlide from "../components/PosterSlider/PosterSlider.component";
 
 const Homepage = () => {
-  const [recommendedMovies, setRecommendedMovies] = useState([]);
-  const [premiumMovies, setPremierMovies] = useState([]);
-  const [onlineStreamEvents, setOnlineStreamEvents] = useState([]);
+  const [popularMovies, setPopularMovies] = useState([]);
+  const [upcomingMovies, setUpcomingMovies] = useState([]);
+  const [latestMovies, setLatestMovies] = useState([]);
 
+  // popular movies
   useEffect(() => {
-    const getMovieList = async () => { 
+    const getPopularMovieList = async () => {
+      const options = {
+        method: "GET",
+        url: "https://api.themoviedb.org/3/movie/popular",
+        params: { language: "en-US", page: "1", region: "IN" },
+        headers: {
+          accept: "application/json",
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzMTZiYmI4ZjhlNDZhYmVmMDAxYTI1MTBiOTA4NjVmMSIsIm5iZiI6MTcyNzY3MTc5Mi40NzEwNTEsInN1YiI6IjY2ZWU3ZWJiYjM0OGJlYTRlYjNhZjliNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.KW_YKIz8h7nbiMkwcVtks-cakN3GHXD2_ak8EaOWLZk",
+        },
+      };
       try {
-        const url = "https://api.sampleapis.com/movies/drama"
-        const response = await axios.get(url);
+        const response = await axios.request(options);
         // console.log(response.data);
-        setRecommendedMovies(response.data);
+        setPopularMovies(response.data.results);
       } catch (err) {
-        setRecommendedMovies(err.message);
+        setPopularMovies(err.message);
       }
     };
-    getMovieList();
+    getPopularMovieList();
   }, []);
 
+  // upcoming movies
   useEffect(() => {
-    const getPremiumMovies = async () => {
-      // let url = "https://api.sampleapis.com/movies/mystery";
-      const apiResponse = await axios.get(
-        "https://api.sampleapis.com/movies/classic"
-      );
-      // console.log(apiResponse.data);
-      setPremierMovies(apiResponse.data);
+    const getUpcomingMovies = async () => {
+      const options = {
+        method: "GET",
+        url: "https://api.themoviedb.org/3/movie/upcoming",
+        params: { language: "en-US", page: "1", region: "IN" },
+        headers: {
+          accept: "application/json",
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzMTZiYmI4ZjhlNDZhYmVmMDAxYTI1MTBiOTA4NjVmMSIsIm5iZiI6MTcyNzY3MTc5Mi40NzEwNTEsInN1YiI6IjY2ZWU3ZWJiYjM0OGJlYTRlYjNhZjliNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.KW_YKIz8h7nbiMkwcVtks-cakN3GHXD2_ak8EaOWLZk",
+        },
+      };
+      try {
+        const response = await axios.request(options);
+        // console.log(response.data.results);
+        setUpcomingMovies(response.data.results);
+      } catch (err) {
+        setUpcomingMovies(err.message);
+      }
     };
-
-    getPremiumMovies();
+    getUpcomingMovies();
   }, []);
 
+  // latest movies
   useEffect(() => {
-    const getOnlineStreamMovies = async () => {
-      // let url = "https://api.sampleapis.com/movies/mystery";
-      const apiResponse = await axios.get(
-        "https://api.sampleapis.com/movies/horror"
-      );
-      // console.log(apiResponse.data);
-      setOnlineStreamEvents(apiResponse.data);
+    const getLatestMovies = async () => {
+      const options = {
+        method: 'GET',
+        url: 'https://api.themoviedb.org/3/discover/movie',
+        params: {
+          include_adult: 'false',
+          include_video: 'false',
+          language: 'en-US',
+          page: '1',
+          primary_release_year: '2023',
+          region: 'India',
+          sort_by: 'popularity.desc'
+        },
+        headers: {
+          accept: 'application/json',
+          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzMTZiYmI4ZjhlNDZhYmVmMDAxYTI1MTBiOTA4NjVmMSIsIm5iZiI6MTcyNzY3MTc5Mi40NzEwNTEsInN1YiI6IjY2ZWU3ZWJiYjM0OGJlYTRlYjNhZjliNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.KW_YKIz8h7nbiMkwcVtks-cakN3GHXD2_ak8EaOWLZk'
+        }
+      };
+      try {
+        const response = await axios.request(options);
+        // console.log(response.data.results);
+        setLatestMovies(response.data.results);
+      } catch (err) {
+        setLatestMovies(err.message);
+      }
     };
-
-    getOnlineStreamMovies();
+    getLatestMovies();
   }, []);
 
   return (
@@ -59,15 +98,15 @@ const Homepage = () => {
       <HeroCarousel />
       <div className="container mx-auto px-4 md:px-12 my-8">
         <h1 className="text-2xl font-bold text-gray-800 sm:ml-3 ml-0 my-3">
-          The best of Entertainment
+          The best of Top-Rated Movies
         </h1>
-        <EntertainmentCard />
+        <TopRatedCard />
       </div>
       <div className="container mx-auto px-4 md:px-12 my-8">
         <PosterSlide
-          title="Recommended Movies"
-          subject="List of recommended movies"
-          posters={recommendedMovies}
+          title="Popular Movies"
+          subject="List of Popular Movies"
+          posters={popularMovies}
           isDark={false}
         />
       </div>
@@ -82,18 +121,18 @@ const Homepage = () => {
             />
           </div>
           <PosterSlide
-            title="Premium Movies"
-            subject="Brand new releases every friday"
-            posters={premiumMovies}
+            title="Upcoming Movies"
+            subject="Upcoming Movies every friday"
+            posters={upcomingMovies}
             isDark={true}
           />
         </div>
       </div>
-      <div className="onlineStreamEvents container mx-auto px-4 md:px-12 my-8">
+      <div className="animatedMovies container mx-auto px-4 md:px-12 my-8">
         <PosterSlide
-          title="online Streaming Events"
-          subject="Online Stream Events"
-          posters={onlineStreamEvents}
+          title="Latest Movies"
+          subject="Movies for your kids"
+          posters={latestMovies}
           isDark={false}
         />
       </div>
