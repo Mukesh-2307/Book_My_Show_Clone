@@ -126,6 +126,36 @@ const Moviepage = (req, res) => {
 
   // const settingsCast = {};
   const settings = {
+    infinite: false,
+    speed: 500,
+    slideToShow: 4,
+    slideToScroll: 4,
+    initialSlide: 0,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slideToShow: 3,
+          slideToScroll: 3,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slideToShow: 2,
+          slideToScroll: 2,
+          initialSlide: 3
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slideToShow: 2,
+          slideToScroll: 1,
+          initialSlide: 2
+        },
+      },
+    ],
   };
 
   return (
@@ -177,7 +207,7 @@ const Moviepage = (req, res) => {
         <div className="my-8">
           <hr />
         </div>
-        {/* Cast Sliders */}
+        {/* recommended Movies Sliders */}
         <div className="my-8">
           <PosterSlider
             config={settings}
@@ -186,14 +216,14 @@ const Moviepage = (req, res) => {
             isDark={false}
           />
         </div>
-        {/* recommended movies Slider */}
         <div className="my-8">
           <hr />
         </div>
 
+        {/* bms exclusive Slider */}
         <PosterSlider
           config={settings}
-          title="BMS XCLUSIVE Movies"
+          title="BMS EXCLUSIVE Movies"
           posters={bmsExclusive}
           isDark={false}
         />

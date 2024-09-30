@@ -8,6 +8,7 @@ const MovieProvider = ({ children }) => {
     originalTitle: "",
     overview: "",
     imageSet: "",
+    rating: ""
   });
 
   const [loading, setLoading] = useState(true);
